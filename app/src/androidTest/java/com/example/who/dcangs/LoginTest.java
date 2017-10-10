@@ -44,10 +44,10 @@ public class LoginTest {
         Intents.release();
     }
 
-    @Test
-    public void testLoginNoEmail(){
-        loginActivityTestRule.launchActivity(null);
-        onView(withId(R.id.etEmail))
-    }
+//    @Test
+//    public void testLoginNoEmail(){
+//        loginActivityTestRule.launchActivity(null);
+//        onView(withId(R.id.etEmail))
+//    }
 
 }
