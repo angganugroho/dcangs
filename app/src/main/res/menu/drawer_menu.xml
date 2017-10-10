@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_lihatproduk"
+            android:title="Lihat Produk"
+            android:icon="@drawable/pemesanan"/>
+
+        <item
+            android:id="@+id/nav_lihatmap"
+            android:title="Lihat Map"
+            android:icon="@drawable/placeholder"/>
+
+        <item
+            android:id="@+id/nav_pemesanan"
+            android:title="Pemesanan"
+            android:icon="@drawable/shoppingcart"/>
+    </group>
+
+    <!--<item-->
+        <!--android:id="@+id/lol"-->
+        <!--android:title=""/>-->
+    <!--<item-->
+        <!--android:id="@+id/loll"-->
+        <!--android:title=""/>-->
+    <!--<item-->
+        <!--android:id="@+id/lolll"-->
+        <!--android:title=""/>-->
+
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Profile"
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/user"/>
+        <item
+            android:title="Log Out"
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"/>
+    </group>
+
+</menu>
