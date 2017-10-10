@@ -46,6 +46,9 @@
             android:name=".Login"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".Forgot"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".Dashboard"
             android:theme="@style/AppTheme" />
         <activity
