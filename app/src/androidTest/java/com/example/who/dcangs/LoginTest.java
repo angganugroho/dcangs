@@ -47,11 +47,8 @@ public class LoginTest {
 //    @Test
 //    public void testLoginNoEmail(){
 //        loginActivityTestRule.launchActivity(null);
-<<<<<<< HEAD
 //        onView(withId(R.id.etEmail));
-=======
 //        onView(withId(R.id.etEmail))
->>>>>>> 324ea4db23674f759bf3192170d8e0d2007b7b95
 //    }
 
 }
