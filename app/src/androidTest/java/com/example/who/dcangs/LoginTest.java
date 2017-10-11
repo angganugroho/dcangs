@@ -35,9 +35,6 @@ public class LoginTest {
     @Rule
     public ActivityTestRule<Login> loginActivityTestRule = new ActivityTestRule<>(Login.class, true, false);
 
-    private String email = "rifaihabib29@gmail.com";
-    private String password = "1234abcd";
-
     private void pauseTestFor(long milliseconds){
         try{
             Thread.sleep(milliseconds);
