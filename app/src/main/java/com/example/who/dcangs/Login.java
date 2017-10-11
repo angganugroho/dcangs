@@ -55,9 +55,11 @@ public class Login extends AppCompatActivity{
         email = etEmail.getText().toString().trim();
         password = etPassword.getText().toString().trim();
 
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
 
+        if(TextUtils.isEmpty(email) && TextUtils.isEmpty(password)){
+            tvError.setText("Please enter email and password");
+            return;
+        }
         if(TextUtils.isEmpty(email)){
             etEmail.setError("Please enter email");
             return;
@@ -73,6 +75,8 @@ public class Login extends AppCompatActivity{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            progressDialog.setMessage("Authenticating...");
+                            progressDialog.show();
                             finish();
                             startActivity(new Intent(getApplicationContext(), Dashboard.class));
 
@@ -87,57 +91,4 @@ public class Login extends AppCompatActivity{
                 });
     }
 
-//    private void login(){
-//        email = etEmail.getText().toString().trim();
-//        password = etPassword.getText().toString().trim();
-//
-//        if(TextUtils.isEmpty(email)){
-//            etEmail.setError("Please enter email");
-////            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if(TextUtils.isEmpty(password)){
-//            etPassword.setError("Please enter password");
-////            Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//
-////        progressDialog.setMessage("Please Wait...");
-////        progressDialog.show();
-//
-//        mAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-////                        progressDialog.dismiss();
-//
-//                        if(task.isSuccessful()){
-//                            finish();
-//                            startActivity(new Intent(getApplicationContext(), LihatProduk.class));
-//
-//                            Toast.makeText(Login.this, "Login success...", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        } else {
-//                            Toast.makeText(Login.this, "Login failed...", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                    }
-//                });
-//    }
-
-//    public void logout(){
-//        mAuth.signOut();
-//        finish();
-//        startActivity(new Intent(this, Login.class));
-//    }
-
-//    @Override
-//    public void onClick(View view) {
-//
-//        if (view == btnLogin){
-//            user.login();
-//        }
-//    }
 }
