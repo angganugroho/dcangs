@@ -3,6 +3,7 @@ package com.example.who.dcangs;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -65,7 +66,7 @@ public class Dashboard extends AppCompatActivity{
                         getSupportActionBar().setTitle("Produk");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
-
+                        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         break;
                     case R.id.nav_lihatmap:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -73,7 +74,7 @@ public class Dashboard extends AppCompatActivity{
                         getSupportActionBar().setTitle("Map");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
-
+                        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         break;
                     case R.id.nav_pemesanan:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -81,22 +82,20 @@ public class Dashboard extends AppCompatActivity{
                         getSupportActionBar().setTitle("Pemesanan");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
-
+                        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         break;
                     case R.id.nav_profile:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new Profile());
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                        fragmentTransaction.replace(R.id.main_container, new Profile()).commit();
                         getSupportActionBar().setTitle("Profile");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
-
+                        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         break;
                     case R.id.nav_logout:
                         mAuth.signOut();
                         startActivity(new Intent(getApplicationContext(), Login.class));
-
+                        finish();
                         break;
                 }
 
@@ -114,4 +113,5 @@ public class Dashboard extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
+
 }

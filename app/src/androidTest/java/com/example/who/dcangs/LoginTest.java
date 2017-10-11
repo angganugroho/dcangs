@@ -3,6 +3,7 @@ package com.example.who.dcangs;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.Toast;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,9 +18,16 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.*;
 
 /**
@@ -27,7 +35,7 @@ import static org.junit.Assert.*;
  */
 
 @RunWith(AndroidJUnit4.class)
-@FixMethodOrder(MethodSorters.DEFAULT)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 
 public class LoginTest {
@@ -48,13 +56,8 @@ public class LoginTest {
         Intents.init();
     }
 
-    @After
-    public void tearDown() throws Exception {
-        Intents.release();
-    }
-
     @Test
-    public void testLoginNoEmailNoPassword(){
+    public void test1LoginNoEmailNoPassword() throws Exception{
         loginActivityTestRule.launchActivity(null);
         onView(withId(R.id.etEmail)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText(""), closeSoftKeyboard());
@@ -64,7 +67,20 @@ public class LoginTest {
     }
 
     @Test
-    public void testLoginWithEmailNoPassword(){
+    public void test7LoginSuccess(){
+        loginActivityTestRule.launchActivity(null);
+        onView(withId(R.id.etEmail)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.etPassword)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.btnLogin)).perform(click());
+        pauseTestFor(2500);
+        onView(withText("Login success..."))
+                .inRoot(withDecorView(not(loginActivityTestRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+        intended(hasComponent(Dashboard.class.getName()));
+    }
+
+    @Test
+    public void test2LoginWithEmailNoPassword() throws Exception{
         loginActivityTestRule.launchActivity(null);
         onView(withId(R.id.etEmail)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText(""), closeSoftKeyboard());
@@ -74,7 +90,7 @@ public class LoginTest {
     }
 
     @Test
-    public void testLoginWithPasswordNoEmail(){
+    public void test3LoginWithPasswordNoEmail() throws Exception{
         loginActivityTestRule.launchActivity(null);
         onView(withId(R.id.etEmail)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText("12345678"), closeSoftKeyboard());
@@ -84,13 +100,34 @@ public class LoginTest {
     }
 
     @Test
-    public void testFalsePassFalseEmail(){
+    public void test4FalsePassEmail() throws Exception{
         loginActivityTestRule.launchActivity(null);
         onView(withId(R.id.etEmail)).perform(typeText("rifaihabib28@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText("12345678"), closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());
         pauseTestFor(2500);
         onView(withId(R.id.tvError)).check(matches(withText("Username or Password Incorrect")));
+    }
+
+    @Test
+    public void test5IntentRegister() throws Exception{
+        loginActivityTestRule.launchActivity(null);
+        onView(withId(R.id.tvRegister1)).perform(click());
+        pauseTestFor(500);
+        intended(hasComponent(Register.class.getName()));
+    }
+
+    @Test
+    public void test6IntentForgotPassword() throws Exception{
+        loginActivityTestRule.launchActivity(null);
+        onView(withId(R.id.tvForgotPassword)).perform(click());
+        pauseTestFor(500);
+        intended(hasComponent(Forgot.class.getName()));
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        Intents.release();
     }
 
 }
