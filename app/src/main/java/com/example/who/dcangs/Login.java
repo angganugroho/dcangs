@@ -60,35 +60,44 @@ public class Login extends AppCompatActivity{
             tvError.setText("Please enter email and password");
             return;
         }
-        if(TextUtils.isEmpty(email)){
+
+        else if(!(TextUtils.isEmpty(email)) && !(TextUtils.isEmpty(password)) && password.length() < 8 ){
+            tvError.setText("Password lenght must have atleast 8 character !!");
+        }
+
+        else if(TextUtils.isEmpty(email)){
             etEmail.setError("Please enter email");
             return;
         }
 
-        if(TextUtils.isEmpty(password)){
+        else if(TextUtils.isEmpty(password)){
             etPassword.setError("Please enter password");
             return;
+        } else {
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                progressDialog.setMessage("Authenticating...");
+                                progressDialog.show();
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+
+                                Toast.makeText(Login.this, "Login success...", Toast.LENGTH_SHORT).show();
+                                return;
+                            } else {
+                                tvError.setText("Username or Password Incorrect");
+//                            Toast.makeText(Login.this, "Login failed...", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                    });
+
         }
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            progressDialog.setMessage("Authenticating...");
-                            progressDialog.show();
-                            finish();
-                            startActivity(new Intent(getApplicationContext(), Dashboard.class));
 
-                            Toast.makeText(Login.this, "Login success...", Toast.LENGTH_SHORT).show();
-                            return;
-                        } else {
-                            tvError.setText("Username or Password Incorrect");
-//                            Toast.makeText(Login.this, "Login failed...", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                });
     }
 
 }

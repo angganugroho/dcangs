@@ -23,7 +23,6 @@ public class Forgot extends AppCompatActivity {
 
     private EditText inputEmail;
     private Button btnReset;
-    private TextView btnBack;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
 
@@ -34,17 +33,9 @@ public class Forgot extends AppCompatActivity {
 
         inputEmail = (EditText) findViewById(R.id.email);
         btnReset = (Button) findViewById(R.id.btnReset);
-        btnBack = (TextView) findViewById(R.id.btnBack);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         auth = FirebaseAuth.getInstance();
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +44,8 @@ public class Forgot extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+                    inputEmail.setError("Enter your registered email");
+//                    Toast.makeText(getApplication(), "Enter your registered email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

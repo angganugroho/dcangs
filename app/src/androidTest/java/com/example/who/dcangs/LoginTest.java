@@ -67,19 +67,6 @@ public class LoginTest {
     }
 
     @Test
-    public void test7LoginSuccess(){
-        loginActivityTestRule.launchActivity(null);
-        onView(withId(R.id.etEmail)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
-        onView(withId(R.id.etPassword)).perform(typeText("12345678"), closeSoftKeyboard());
-        onView(withId(R.id.btnLogin)).perform(click());
-        pauseTestFor(2500);
-        onView(withText("Login success..."))
-                .inRoot(withDecorView(not(loginActivityTestRule.getActivity().getWindow().getDecorView())))
-                .check(matches(isDisplayed()));
-        intended(hasComponent(Dashboard.class.getName()));
-    }
-
-    @Test
     public void test2LoginWithEmailNoPassword() throws Exception{
         loginActivityTestRule.launchActivity(null);
         onView(withId(R.id.etEmail)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -123,6 +110,29 @@ public class LoginTest {
         onView(withId(R.id.tvForgotPassword)).perform(click());
         pauseTestFor(500);
         intended(hasComponent(Forgot.class.getName()));
+    }
+
+    @Test
+    public void test7PasswordLessThan8Char(){
+        loginActivityTestRule.launchActivity(null);
+        onView(withId(R.id.etEmail)).perform(typeText("rifaihabib28@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.etPassword)).perform(typeText("1234567"), closeSoftKeyboard());
+        onView(withId(R.id.btnLogin)).perform(click());
+        pauseTestFor(500);
+        onView(withId(R.id.tvError)).check(matches(withText("Password lenght must have atleast 8 character !!")));
+    }
+
+    @Test
+    public void test8LoginSuccess(){
+        loginActivityTestRule.launchActivity(null);
+        onView(withId(R.id.etEmail)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.etPassword)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.btnLogin)).perform(click());
+        pauseTestFor(2500);
+        onView(withText("Login success..."))
+                .inRoot(withDecorView(not(loginActivityTestRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+        intended(hasComponent(Dashboard.class.getName()));
     }
 
     @After

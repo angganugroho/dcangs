@@ -54,16 +54,6 @@
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"/>
 
-            <TextView
-                android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Back"
-                android:layout_marginTop="400dp"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"
-                android:onClick="onClick"/>
-
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="30dp"
