@@ -167,6 +167,25 @@ public class BRegisterTest {
         onView(withId(R.id.email)).check(matches(hasErrorText("Please enter your email")));
         onView(withId(R.id.nohp)).check(matches(hasErrorText("Please enter your phone number")));
     }
+// Sek iki gorong mari
+//    @Test
+//    public void test81RegisterFailed(){
+//        registerActivityTestRule.launchActivity(null);
+//        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
+//        onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
+//        onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());
+//        onView(withId(R.id.password)).perform(typeText("12345678"), closeSoftKeyboard());
+//        onView(withId(R.id.userPict)).perform(click());
+//        pauseTestFor(1500);
+//        onView(withId(R.id.userPict)).perform(withResourceName(R.drawable.n));
+//        pauseTestFor(1500);
+//        onView(withId(R.id.btnRegistrasi)).perform(click());
+//        pauseTestFor(2500);
+//        onView(withText("Register Failed"))
+//                .inRoot(withDecorView(not(registerActivityTestRule.getActivity().getWindow().getDecorView())))
+//                .check(matches(isDisplayed()));
+//        intended(hasComponent(Register.class.getName()));
+//    }
 
     @Test
     public void test9RegisterNoEmailPassword(){
@@ -182,7 +201,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test10RegisterNoNohpPassword(){
+    public void test91RegisterNoNohpPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -195,7 +214,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test11RegisterNoNama(){
+    public void test92RegisterNoNama(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -207,7 +226,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test12RegisterNoNohp(){
+    public void test93RegisterNoNohp(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -219,7 +238,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test13RegisterNoEmail(){
+    public void test94RegisterNoEmail(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText(""), closeSoftKeyboard());
@@ -231,7 +250,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test14RegisterNoPassword(){
+    public void test95RegisterNoPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -240,6 +259,55 @@ public class BRegisterTest {
         onView(withId(R.id.btnRegistrasi)).perform(click());
         pauseTestFor(500);
         onView(withId(R.id.password)).check(matches(hasErrorText("Please enter your password")));
+    }
+
+    @Test
+    public void test96RegisterNoPassword(){
+        registerActivityTestRule.launchActivity(null);
+        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.nohp)).perform(typeText("087626626626"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText(""), closeSoftKeyboard());
+        onView(withId(R.id.btnRegistrasi)).perform(click());
+        pauseTestFor(500);
+        onView(withId(R.id.password)).check(matches(hasErrorText("Please enter your password")));
+    }
+
+    @Test
+    public void test97RegisterPasswordLength(){
+        registerActivityTestRule.launchActivity(null);
+        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.nohp)).perform(typeText("087626626626"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText("13423er"), closeSoftKeyboard());
+        onView(withId(R.id.btnRegistrasi)).perform(click());
+        pauseTestFor(500);
+        onView(withId(R.id.password)).check(matches(hasErrorText("Password lenght must have atleast 8 character !!")));
+    }
+
+    @Test
+    public void test98RegisterNohpLength(){
+        registerActivityTestRule.launchActivity(null);
+        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.nohp)).perform(typeText("087647839"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.btnRegistrasi)).perform(click());
+        pauseTestFor(500);
+        onView(withId(R.id.nohp)).check(matches(hasErrorText("Your phone number invalid")));
+    }
+
+    @Test
+    public void test99RegisterNohpPasswordLength(){
+        registerActivityTestRule.launchActivity(null);
+        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.nohp)).perform(typeText("0876478"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText("12345"), closeSoftKeyboard());
+        onView(withId(R.id.btnRegistrasi)).perform(click());
+        pauseTestFor(500);
+        onView(withId(R.id.password)).check(matches(hasErrorText("Password lenght must have atleast 8 character !!")));
+        onView(withId(R.id.nohp)).check(matches(hasErrorText("Your phone number invalid")));
     }
 
 

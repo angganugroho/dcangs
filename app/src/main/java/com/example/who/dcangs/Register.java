@@ -147,8 +147,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             etPassword.setError("Please enter your password");
         }
 
-        else if(selectedImage == null){
-            Toast.makeText(Register.this, "Please select your image", Toast.LENGTH_SHORT).show();
+        else if((!(TextUtils.isEmpty(password))) && password.length() < 8 && (!(TextUtils.isEmpty(nohp))) && nohp.length() < 10){
+            etPassword.setError("Password lenght must have atleast 8 character !!");
+            etNohp.setError("Your phone number invalid");
         }
 
         else if((!(TextUtils.isEmpty(password))) && password.length() < 8){
@@ -157,6 +158,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         else if((!(TextUtils.isEmpty(nohp))) && nohp.length() < 10){
             etNohp.setError("Your phone number invalid");
+        }
+
+        else if(selectedImage == null){
+            Toast.makeText(Register.this, "Please select your image", Toast.LENGTH_SHORT).show();
         }
 
         else {
