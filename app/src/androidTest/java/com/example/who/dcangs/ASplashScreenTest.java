@@ -51,15 +51,15 @@ public class ASplashScreenTest {
         pauseTestFor(3000);
         intended(hasComponent(Login.class.getName()));
     }
-
-    @Test
-    public void test2SessionNotNull(){
-        splashScreenActivityTestRule.launchActivity(null);
-        mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() != null){
-            intended(hasComponent(Login.class.getName()));
-        }
-    }
+//
+//    @Test
+//    public void test2SessionNotNull(){
+//        splashScreenActivityTestRule.launchActivity(null);
+//        mAuth = FirebaseAuth.getInstance();
+//        if(mAuth.getCurrentUser() != null){
+//            intended(hasComponent(Dashboard.class.getName()));
+//        }
+//    }
 
 //    @Test
 //    public void test3SessionNull(){
