@@ -4,6 +4,8 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -24,6 +26,8 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class ASplashScreenTest {
+
+    public FirebaseAuth mAuth;
 
     @Rule
     public ActivityTestRule<SplashScreen> splashScreenActivityTestRule = new ActivityTestRule<>(SplashScreen.class, true, false);
@@ -47,6 +51,29 @@ public class ASplashScreenTest {
         pauseTestFor(3000);
         intended(hasComponent(Login.class.getName()));
     }
+
+    @Test
+    public void test2SessionNotNull(){
+        splashScreenActivityTestRule.launchActivity(null);
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null){
+            intended(hasComponent(Login.class.getName()));
+        }
+    }
+
+//    @Test
+//    public void test3SessionNull(){
+//        mAuth = FirebaseAuth.getInstance();
+//        splashScreenActivityTestRule.launchActivity(null);
+//        if (mAuth.getCurrentUser() == null) {
+//            try {
+//                pauseTestFor(3000);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                intended(hasComponent(Login.class.getName()));
+//            }
+//        }
+//    }
 
     @After
     public void tearDown() throws Exception {
