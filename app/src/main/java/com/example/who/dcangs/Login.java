@@ -28,6 +28,7 @@ public class Login extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getWindow().setBackgroundDrawableResource(R.drawable.splash);
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         if(mAuth.getCurrentUser() != null){

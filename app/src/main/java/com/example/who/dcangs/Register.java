@@ -2,16 +2,14 @@ package com.example.who.dcangs;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,8 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.net.URI;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
 
@@ -70,72 +66,145 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         nohp = etNohp.getText().toString().trim();
 
 
-        if(TextUtils.isEmpty(nama)){
-            etNama.setError("Please enter email");
+        if(TextUtils.isEmpty(nama) && TextUtils.isEmpty(password) && TextUtils.isEmpty(email) && TextUtils.isEmpty(nohp)){
+            etNama.setError("Please enter your name");
+            etPassword.setError("Please enter your password");
+            etEmail.setError("Please enter your email");
+            etNohp.setError("Please enter your phone number");
             return;
         }
 
-        else if(TextUtils.isEmpty(password)){
-            etPassword.setError("Please enter password");
+        else if(TextUtils.isEmpty(nama) && TextUtils.isEmpty(email) && TextUtils.isEmpty(nohp)){
+            etNama.setError("Please enter your name");
+            etEmail.setError("Please enter your email");
+            etNohp.setError("Please enter your phone number");
             return;
         }
 
-        else if(TextUtils.isEmpty(email)){
-            etEmail.setError("Please enter email");
+        else if(TextUtils.isEmpty(nama) && TextUtils.isEmpty(email) && TextUtils.isEmpty(password)){
+            etNama.setError("Please enter your name");
+            etEmail.setError("Please enter your email");
+            etPassword.setError("Please enter your password");
             return;
+        }
+
+        else if(TextUtils.isEmpty(nama) && TextUtils.isEmpty(nohp) && TextUtils.isEmpty(password)){
+            etNama.setError("Please enter your name");
+            etNohp.setError("Please enter your phone number");
+            etPassword.setError("Please enter your password");
+            return;
+        }
+
+        else if(TextUtils.isEmpty(email) && TextUtils.isEmpty(nohp) && TextUtils.isEmpty(password)){
+            etEmail.setError("Please enter your email");
+            etNohp.setError("Please enter your phone number");
+            etPassword.setError("Please enter your password");
+        }
+
+        else if(TextUtils.isEmpty(nama) && TextUtils.isEmpty(email)){
+            etNama.setError("Please enter your name");
+            etEmail.setError("Please enter your email");
+        }
+
+        else if(TextUtils.isEmpty(nama) && TextUtils.isEmpty(nohp)){
+            etNama.setError("Please enter your name");
+            etNohp.setError("Please enter your phone number");
+        }
+
+        else if(TextUtils.isEmpty(nama) && TextUtils.isEmpty(password)){
+            etNama.setError("Please enter your name");
+            etPassword.setError("Please enter your password");
+        }
+
+        else if(TextUtils.isEmpty(email) && TextUtils.isEmpty(nohp)){
+            etEmail.setError("Please enter your email");
+            etNohp.setError("Please enter your phone number");
+        }
+
+        else if(TextUtils.isEmpty(email) && TextUtils.isEmpty(password)){
+            etPassword.setError("Please enter your password");
+            etEmail.setError("Please enter your email");
+        }
+
+        else if(TextUtils.isEmpty(nohp) && TextUtils.isEmpty(password)){
+            etPassword.setError("Please enter your password");
+            etNohp.setError("Please enter your phone number");
+        }
+
+        else if(TextUtils.isEmpty(nama)){
+            etNama.setError("Please enter your name");
         }
 
         else if(TextUtils.isEmpty(nohp)){
-            etNohp.setError("Please enter password");
-            return;
+            etNohp.setError("Please enter your phone number");
         }
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            finish();
+        else if(TextUtils.isEmpty(email)){
+            etEmail.setError("Please enter your email");
+        }
 
-                            String uid = mAuth.getCurrentUser().getUid();
-                            create = ref.child("Pemesanan").child(uid).child("Profile");
+        else if(TextUtils.isEmpty(password)){
+            etPassword.setError("Please enter your password");
+        }
 
-                            namaUser = create.child("Nama");
-                            noHpUser = create.child("No Telefon");
-                            emailUser = create.child("Email");
-                            pictUser = create.child("Pict");
+        else if(selectedImage == null){
+            Toast.makeText(Register.this, "Please select your image", Toast.LENGTH_SHORT).show();
+        }
 
-                            if(selectedImage != null){
-                                StorageReference riversRef = storageReference.child("User").child(nama);
+        else if((!(TextUtils.isEmpty(password))) && password.length() < 8){
+            etPassword.setError("Password lenght must have atleast 8 character !!");
+        }
 
-                                riversRef.putFile(selectedImage)
-                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        else if((!(TextUtils.isEmpty(nohp))) && nohp.length() < 10){
+            etNohp.setError("Your phone number invalid");
+        }
 
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception exception) {
+        else {
 
-                                            }
-                                        });
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                finish();
+
+                                String uid = mAuth.getCurrentUser().getUid();
+                                create = ref.child("Pemesanan").child(uid).child("Profile");
+
+                                namaUser = create.child("Nama");
+                                noHpUser = create.child("No Telefon");
+                                emailUser = create.child("Email");
+                                pictUser = create.child("Pict");
+
+                                    StorageReference riversRef = storageReference.child("User").child(nama);
+
+                                    riversRef.putFile(selectedImage)
+                                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception exception) {
+
+                                                }
+                                            });
+
+                                emailUser.setValue(email);
+                                namaUser.setValue(nama);
+                                noHpUser.setValue(nohp);
+                                pictUser.setValue(nama);
+                                Toast.makeText(Register.this, "Register Succesfull", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(Register.this, Login.class));
                             } else {
-
+                                Toast.makeText(Register.this, "Register Failed", Toast.LENGTH_SHORT).show();
                             }
-
-                            emailUser.setValue(email);
-                            namaUser.setValue(nama);
-                            noHpUser.setValue(nohp);
-                            pictUser.setValue(nama);
-                            Toast.makeText(Register.this, "Register Succesfull", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Register.this, Login.class));
-                        } else {
-                            Toast.makeText(Register.this, "Register Failed", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    });
+        }
+
     }
 
     @Override
