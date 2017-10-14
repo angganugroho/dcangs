@@ -17,8 +17,14 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.IsNot.not;
 
 /**
  * Created by Daud on 12-Oct-17.
@@ -27,7 +33,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-public class BRegisterTest {
+public class DRegisterTest {
 
     @Rule
     public ActivityTestRule<Register> registerActivityTestRule = new ActivityTestRule<>(Register.class, true, false);
@@ -46,7 +52,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test1RegisterNoData(){
+    public void testARegisterNoData(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText(""), closeSoftKeyboard());
@@ -61,7 +67,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test2RegisterNoNamaEmailNohp(){
+    public void testBRegisterNoNamaEmailNohp(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText(""), closeSoftKeyboard());
@@ -75,7 +81,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test3RegisterNoNamaEmailPassword(){
+    public void testCRegisterNoNamaEmailPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText(""), closeSoftKeyboard());
@@ -89,7 +95,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test4RegisterNoNamaNohpPassword(){
+    public void testDRegisterNoNamaNohpPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -103,7 +109,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test5RegisterNoEmailNohpPassword(){
+    public void testERegisterNoEmailNohpPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText(""), closeSoftKeyboard());
@@ -117,7 +123,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test6RegisterNoNamaEmail(){
+    public void testFRegisterNoNamaEmail(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText(""), closeSoftKeyboard());
@@ -130,7 +136,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test7RegisterNoNamaNohp(){
+    public void testGRegisterNoNamaNohp(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -143,7 +149,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test8RegisterNoNamaPassword(){
+    public void testHRegisterNoNamaPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -156,7 +162,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test8RegisterNoEmailNohp(){
+    public void testIRegisterNoEmailNohp(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText(""), closeSoftKeyboard());
@@ -167,28 +173,9 @@ public class BRegisterTest {
         onView(withId(R.id.email)).check(matches(hasErrorText("Please enter your email")));
         onView(withId(R.id.nohp)).check(matches(hasErrorText("Please enter your phone number")));
     }
-// Sek iki gorong mari
-//    @Test
-//    public void test81RegisterFailed(){
-//        registerActivityTestRule.launchActivity(null);
-//        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
-//        onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
-//        onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());
-//        onView(withId(R.id.password)).perform(typeText("12345678"), closeSoftKeyboard());
-//        onView(withId(R.id.userPict)).perform(click());
-//        pauseTestFor(1500);
-//        onView(withId(R.id.userPict)).perform(withResourceName(R.drawable.n));
-//        pauseTestFor(1500);
-//        onView(withId(R.id.btnRegistrasi)).perform(click());
-//        pauseTestFor(2500);
-//        onView(withText("Register Failed"))
-//                .inRoot(withDecorView(not(registerActivityTestRule.getActivity().getWindow().getDecorView())))
-//                .check(matches(isDisplayed()));
-//        intended(hasComponent(Register.class.getName()));
-//    }
 
     @Test
-    public void test9RegisterNoEmailPassword(){
+    public void testJRegisterNoEmailPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText(""), closeSoftKeyboard());
@@ -201,7 +188,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test91RegisterNoNohpPassword(){
+    public void testKRegisterNoNohpPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -214,7 +201,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test92RegisterNoNama(){
+    public void testLRegisterNoNama(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -226,7 +213,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test93RegisterNoNohp(){
+    public void testMRegisterNoNohp(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -238,7 +225,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test94RegisterNoEmail(){
+    public void testNRegisterNoEmail(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText(""), closeSoftKeyboard());
@@ -250,7 +237,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test95RegisterNoPassword(){
+    public void testORegisterNoPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -262,7 +249,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test96RegisterNoPassword(){
+    public void testPRegisterNoPassword(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -274,7 +261,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test97RegisterPasswordLength(){
+    public void testQRegisterPasswordLength(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -286,7 +273,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test98RegisterNohpLength(){
+    public void testRRegisterNohpLength(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -298,7 +285,7 @@ public class BRegisterTest {
     }
 
     @Test
-    public void test99RegisterNohpPasswordLength(){
+    public void testSRegisterNohpPasswordLength(){
         registerActivityTestRule.launchActivity(null);
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
@@ -310,7 +297,55 @@ public class BRegisterTest {
         onView(withId(R.id.nohp)).check(matches(hasErrorText("Your phone number invalid")));
     }
 
+    @Test
+    public void testTRegisterFailed(){
+        registerActivityTestRule.launchActivity(null);
 
+        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.userPict)).perform(click());
+        pauseTestFor(6000);
+        onView(withId(R.id.btnRegistrasi)).perform(click());
+        pauseTestFor(2500);
+        onView(withText("Register Failed"))
+                .inRoot(withDecorView(not(registerActivityTestRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+        intended(hasComponent(Register.class.getName()));
+    }
+
+    @Test
+    public void testURegisterSuccess(){
+        registerActivityTestRule.launchActivity(null);
+
+        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("rifai.habib@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.userPict)).perform(click());
+        pauseTestFor(6000);
+        onView(withId(R.id.btnRegistrasi)).perform(click());
+        pauseTestFor(2500);
+        onView(withText("Register Succesfull"))
+                .inRoot(withDecorView(not(registerActivityTestRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+        intended(hasComponent(Register.class.getName()));
+    }
+
+    @Test
+    public void testVRegisterNoSelectedImage(){
+        registerActivityTestRule.launchActivity(null);
+
+        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("rifai.habib@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.btnRegistrasi)).perform(click());
+        onView(withText("Please select your image"))
+                .inRoot(withDecorView(not(registerActivityTestRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+    }
 
     @After
     public void tearDown() throws Exception {

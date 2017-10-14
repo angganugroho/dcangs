@@ -70,7 +70,6 @@ public class XDashboardTest {
     public void test2LihatMap(){
         dashboardActivityTestRule.launchActivity(null);
         onView(withId(R.id.drawer_layout)).check(matches(isClosed(Gravity.LEFT))).perform(open());
-        onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_lihatmap));
         dashboard = dashboardActivityTestRule.launchActivity(new Intent());
         dashboard.getSupportFragmentManager()
                 .beginTransaction()
@@ -82,7 +81,6 @@ public class XDashboardTest {
     public void test3Pemesanan(){
         dashboardActivityTestRule.launchActivity(null);
         onView(withId(R.id.drawer_layout)).check(matches(isClosed(Gravity.LEFT))).perform(open());
-        onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_pemesanan));
         dashboard = dashboardActivityTestRule.launchActivity(new Intent());
         dashboard.getSupportFragmentManager()
                 .beginTransaction()
@@ -94,7 +92,6 @@ public class XDashboardTest {
     public void test4Profile(){
         dashboardActivityTestRule.launchActivity(null);
         onView(withId(R.id.drawer_layout)).check(matches(isClosed(Gravity.LEFT))).perform(open());
-        onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_profile));
         dashboard = dashboardActivityTestRule.launchActivity(new Intent());
         dashboard.getSupportFragmentManager()
                 .beginTransaction()
@@ -109,6 +106,7 @@ public class XDashboardTest {
         onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_logout));
         pauseTestFor(1000);
         intended(hasComponent(Login.class.getName()));
+        pauseTestFor(1000);
     }
 
     @After

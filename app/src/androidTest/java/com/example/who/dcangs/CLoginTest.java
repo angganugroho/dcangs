@@ -3,7 +3,6 @@ package com.example.who.dcangs;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.widget.Toast;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,15 +19,12 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.*;
 
 /**
  * Created by who on 10/10/2017.
@@ -38,7 +34,7 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 
-public class LoginTest {
+public class CLoginTest {
 
     @Rule
     public ActivityTestRule<Login> loginActivityTestRule = new ActivityTestRule<>(Login.class, true, false);

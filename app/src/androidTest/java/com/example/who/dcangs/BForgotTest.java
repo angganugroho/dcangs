@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-public class ForgotTest {
+public class BForgotTest {
 
     @Rule
     public ActivityTestRule<Forgot> forgotActivityTestRule = new ActivityTestRule<>(Forgot.class, true, false);

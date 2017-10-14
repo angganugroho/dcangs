@@ -3,12 +3,10 @@ package com.example.who.dcangs;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,7 +94,9 @@ public class Pemesanan extends android.support.v4.app.Fragment implements View.O
             case R.id.btnPesan:
                 Toast.makeText(getContext(), "Pesanan Sedang Diantar", Toast.LENGTH_SHORT).show();
                 break;
-
+            case R.id.btnCancel:
+                Toast.makeText(getContext(), "Pesanan Dibatalkan", Toast.LENGTH_SHORT).show();
+                break;
         }
 
     }
