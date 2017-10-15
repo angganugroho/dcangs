@@ -92,7 +92,7 @@ public class Pemesanan extends android.support.v4.app.Fragment implements View.O
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnPesan:
-                Toast.makeText(getContext(), "Pesanan Sedang Diantar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Pesanan Sedang Diproses", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnCancel:
                 Toast.makeText(getContext(), "Pesanan Dibatalkan", Toast.LENGTH_SHORT).show();
