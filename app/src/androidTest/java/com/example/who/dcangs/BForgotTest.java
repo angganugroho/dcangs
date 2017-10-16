@@ -67,7 +67,7 @@ public class BForgotTest {
     @Test
     public void test3SuccessForgotPassword(){
         forgotActivityTestRule.launchActivity(null);
-        onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("yoga@yoga.com"), closeSoftKeyboard());
         onView(withId(R.id.btnReset)).perform(click());
         pauseTestFor(1500);
         onView(withText("We have sent you instructions to reset your password!"))

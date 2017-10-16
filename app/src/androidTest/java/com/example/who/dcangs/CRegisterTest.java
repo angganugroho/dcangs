@@ -351,16 +351,6 @@ public class CRegisterTest {
         intended(hasComponent(Register.class.getName()));
     }
 
-//    @Test
-//    public void testWRegisterSuccessLogout(){
-//        dashboardActivityTestRule.launchActivity(null);
-//        openDrawer(R.id.drawer_layout);
-//        onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_logout));
-//        pauseTestFor(1000);
-//        intended(hasComponent(Login.class.getName()));
-//        pauseTestFor(1000);
-//    }
-
     @After
     public void tearDown() throws Exception {
         Intents.release();

@@ -1,14 +1,16 @@
 package com.example.who.dcangs;
 
 import android.content.Intent;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
+import android.view.View;
 
-import com.android21buttons.fragmenttestrule.FragmentTestRule;
-
+import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -42,9 +44,7 @@ public class XDashboardTest {
 
     @Rule
     public ActivityTestRule<Dashboard> dashboardActivityTestRule = new ActivityTestRule<>(Dashboard.class, true, false);
-    public FragmentTestRule<?, Pemesanan> pemesananFragmentTestRule = FragmentTestRule.create(Pemesanan.class);
 
-    private Fragment fragment;
     private Dashboard dashboard;
 
     private void pauseTestFor(long milliseconds){
@@ -58,11 +58,10 @@ public class XDashboardTest {
     @Before
     public void setUp() throws Exception {
         Intents.init();
-//        fragment = new LihatProduk();
     }
 
     @Test
-    public void test1LihatProduk(){
+    public void testALihatProduk() {
         dashboardActivityTestRule.launchActivity(null);
         onView(withId(R.id.drawer_layout)).check(matches(isClosed(Gravity.LEFT))).perform(open());
         onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_lihatproduk));
@@ -71,10 +70,62 @@ public class XDashboardTest {
                 .beginTransaction()
                 .replace(R.id.main_container, new LihatProduk())
                 .commit();
+
+        pauseTestFor(5000);
+
+        onView(withId(R.id.rv_menu_produk)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, new ViewAction() {
+                    @Override
+                    public Matcher<View> getConstraints() {
+                        return null;
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "Click on specific button";
+                    }
+
+                    @Override
+                    public void perform(UiController uiController, View view) {
+                        View add = view.findViewById(R.id.btnPlus);
+                        View addToCart = view.findViewById(R.id.addToCart);
+                        add.performClick();
+                        pauseTestFor(5000);
+                        addToCart.performClick();
+
+                    }
+                })
+        );
+
+        onView(withId(R.id.rv_menu_produk)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(1, new ViewAction() {
+                    @Override
+                    public Matcher<View> getConstraints() {
+                        return null;
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "Click on specific button";
+                    }
+
+                    @Override
+                    public void perform(UiController uiController, View view) {
+                        View add = view.findViewById(R.id.btnPlus);
+                        View min = view.findViewById(R.id.btnMinus);
+                        View addToCart = view.findViewById(R.id.addToCart);
+                        add.performClick();
+                        min.performClick();
+                        pauseTestFor(5000);
+                        addToCart.performClick();
+
+                    }
+                })
+        );
     }
 
     @Test
-    public void test2LihatMap(){
+    public void testBLihatMap(){
         dashboardActivityTestRule.launchActivity(null);
         onView(withId(R.id.drawer_layout)).check(matches(isClosed(Gravity.LEFT))).perform(open());
         onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_lihatmap));
@@ -86,7 +137,7 @@ public class XDashboardTest {
     }
 
     @Test
-    public void test3PemesananPesan(){
+    public void testCPemesananPesan(){
         dashboardActivityTestRule.launchActivity(null);
         onView(withId(R.id.drawer_layout)).check(matches(isClosed(Gravity.LEFT))).perform(open());
         onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_pemesanan));
@@ -105,7 +156,7 @@ public class XDashboardTest {
     }
 
     @Test
-    public void test31PemesananCancel(){
+    public void testDPemesananCancel(){
         dashboardActivityTestRule.launchActivity(null);
         onView(withId(R.id.drawer_layout)).check(matches(isClosed(Gravity.LEFT))).perform(open());
         onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_pemesanan));
@@ -124,7 +175,7 @@ public class XDashboardTest {
     }
 
     @Test
-    public void test4Profile(){
+    public void testEProfile(){
         dashboardActivityTestRule.launchActivity(null);
         onView(withId(R.id.drawer_layout)).check(matches(isClosed(Gravity.LEFT))).perform(open());
         onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_profile));
@@ -136,7 +187,7 @@ public class XDashboardTest {
     }
 
     @Test
-    public void testLogout(){
+    public void testFLogout(){
         dashboardActivityTestRule.launchActivity(null);
         openDrawer(R.id.drawer_layout);
         onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_logout));

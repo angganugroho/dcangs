@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -21,7 +20,6 @@ public class MenuAdapterPemesanan extends RecyclerView.Adapter<MenuAdapterPemesa
     Context context;
     ArrayList<Menus_Pemesanan> listMenu;
     FirebaseAuth mAuth;
-    DatabaseReference ref;
 
     public MenuAdapterPemesanan(Context ctx, ArrayList<Menus_Pemesanan> list) {
         this.context = ctx;
@@ -40,9 +38,6 @@ public class MenuAdapterPemesanan extends RecyclerView.Adapter<MenuAdapterPemesa
         holder.tv_harga.setText(now.getHarga());
         holder.tv_produk.setText(now.getProduk());
         holder.tv_jumlah.setText(now.getJumlah());
-
-//        holder.tv_email.setText(now.getEmail());
-
     }
 
     @Override
@@ -52,7 +47,7 @@ public class MenuAdapterPemesanan extends RecyclerView.Adapter<MenuAdapterPemesa
 
     public class MenuAdapterViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_harga, tv_produk, tv_jumlah, tv_email;
+        TextView tv_harga, tv_produk, tv_jumlah;
 
         public MenuAdapterViewHolder(final View itemView) {
             super(itemView);

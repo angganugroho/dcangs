@@ -130,7 +130,7 @@ public class ZLoginTest {
         onView(withId(R.id.etEmail)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText("12345678"), closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());
-        pauseTestFor(3000);
+        pauseTestFor(2500);
         onView(withText("Login success..."))
                 .inRoot(withDecorView(not(loginActivityTestRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
