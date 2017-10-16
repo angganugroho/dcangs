@@ -24,7 +24,7 @@ public class Pemesanan extends android.support.v4.app.Fragment implements View.O
     private DatabaseReference ref, dataPesan, nama;
     FirebaseAuth mAuth;
     TextView tvNama;
-    Button btnPesan;
+    Button btnPesan, btnCancel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,8 +33,11 @@ public class Pemesanan extends android.support.v4.app.Fragment implements View.O
 
         tvNama = (TextView) view.findViewById(R.id.tv_Nama);
         btnPesan = (Button) view.findViewById(R.id.btnPesan);
+        btnCancel = (Button) view.findViewById(R.id.btnCancel);
 
         btnPesan.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+
 
         final ArrayList<Menus_Pemesanan> dataList = new ArrayList<>();
 
