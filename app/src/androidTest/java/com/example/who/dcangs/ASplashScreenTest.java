@@ -16,7 +16,6 @@ import org.junit.runners.MethodSorters;
 
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static org.junit.Assert.*;
 
 /**
  * Created by who on 12/10/2017.
@@ -46,34 +45,21 @@ public class ASplashScreenTest {
     }
 
     @Test
-    public void test1TimeSplashScreen(){
+    public void testATimeSplashScreen(){
         splashScreenActivityTestRule.launchActivity(null);
         pauseTestFor(3000);
         intended(hasComponent(Login.class.getName()));
     }
-//
-//    @Test
-//    public void test2SessionNotNull(){
-//        splashScreenActivityTestRule.launchActivity(null);
-//        mAuth = FirebaseAuth.getInstance();
-//        if(mAuth.getCurrentUser() != null){
-//            intended(hasComponent(Dashboard.class.getName()));
-//        }
-//    }
 
-//    @Test
-//    public void test3SessionNull(){
-//        mAuth = FirebaseAuth.getInstance();
-//        splashScreenActivityTestRule.launchActivity(null);
-//        if (mAuth.getCurrentUser() == null) {
-//            try {
-//                pauseTestFor(3000);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                intended(hasComponent(Login.class.getName()));
-//            }
-//        }
-//    }
+    @Test
+    public void testCSessionNull(){
+        mAuth = FirebaseAuth.getInstance();
+        splashScreenActivityTestRule.launchActivity(null);
+//        mAuth.signOut();
+        pauseTestFor(3000);
+        intended(hasComponent(Login.class.getName()));
+
+    }
 
     @After
     public void tearDown() throws Exception {

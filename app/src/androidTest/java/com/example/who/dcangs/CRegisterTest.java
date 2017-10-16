@@ -4,6 +4,8 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -33,10 +35,13 @@ import static org.hamcrest.core.IsNot.not;
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-public class DRegisterTest {
+public class CRegisterTest {
+
+    public FirebaseAuth mAuth;
 
     @Rule
     public ActivityTestRule<Register> registerActivityTestRule = new ActivityTestRule<>(Register.class, true, false);
+    public ActivityTestRule<Dashboard> dashboardActivityTestRule = new ActivityTestRule<>(Dashboard.class, true, false);
 
     private void pauseTestFor(long milliseconds){
         try{
@@ -298,7 +303,21 @@ public class DRegisterTest {
     }
 
     @Test
-    public void testTRegisterFailed(){
+    public void testTRegisterNoSelectedImage(){
+        registerActivityTestRule.launchActivity(null);
+
+        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("rifai.habib@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.btnRegistrasi)).perform(click());
+        onView(withText("Please select your image"))
+                .inRoot(withDecorView(not(registerActivityTestRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testURegisterFailed(){
         registerActivityTestRule.launchActivity(null);
 
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
@@ -316,9 +335,8 @@ public class DRegisterTest {
     }
 
     @Test
-    public void testURegisterSuccess(){
+    public void testVRegisterSuccess(){
         registerActivityTestRule.launchActivity(null);
-
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifai.habib@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());
@@ -333,19 +351,15 @@ public class DRegisterTest {
         intended(hasComponent(Register.class.getName()));
     }
 
-    @Test
-    public void testVRegisterNoSelectedImage(){
-        registerActivityTestRule.launchActivity(null);
-
-        onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
-        onView(withId(R.id.email)).perform(typeText("rifai.habib@gmail.com"), closeSoftKeyboard());
-        onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());
-        onView(withId(R.id.password)).perform(typeText("12345678"), closeSoftKeyboard());
-        onView(withId(R.id.btnRegistrasi)).perform(click());
-        onView(withText("Please select your image"))
-                .inRoot(withDecorView(not(registerActivityTestRule.getActivity().getWindow().getDecorView())))
-                .check(matches(isDisplayed()));
-    }
+//    @Test
+//    public void testWRegisterSuccessLogout(){
+//        dashboardActivityTestRule.launchActivity(null);
+//        openDrawer(R.id.drawer_layout);
+//        onView(withId(R.id.navigation_view)).perform(navigateTo(R.id.nav_logout));
+//        pauseTestFor(1000);
+//        intended(hasComponent(Login.class.getName()));
+//        pauseTestFor(1000);
+//    }
 
     @After
     public void tearDown() throws Exception {

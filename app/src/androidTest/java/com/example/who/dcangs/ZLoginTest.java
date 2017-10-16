@@ -4,6 +4,8 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -34,10 +36,14 @@ import static org.hamcrest.core.IsNot.not;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 
-public class CLoginTest {
+public class ZLoginTest {
+
+    public FirebaseAuth mAuth;
 
     @Rule
     public ActivityTestRule<Login> loginActivityTestRule = new ActivityTestRule<>(Login.class, true, false);
+    public ActivityTestRule<SplashScreen> splashScreenActivityTestRule = new ActivityTestRule<>(SplashScreen.class, true, false);
+
 
     private void pauseTestFor(long milliseconds){
         try{
@@ -124,11 +130,19 @@ public class CLoginTest {
         onView(withId(R.id.etEmail)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText("12345678"), closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());
-        pauseTestFor(2500);
+        pauseTestFor(3000);
         onView(withText("Login success..."))
                 .inRoot(withDecorView(not(loginActivityTestRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
         intended(hasComponent(Dashboard.class.getName()));
+    }
+
+    @Test
+    public void test9LoginSessionNotNull(){
+        splashScreenActivityTestRule.launchActivity(null);
+        pauseTestFor(1000);
+        intended(hasComponent(Dashboard.class.getName()));
+        pauseTestFor(1000);
     }
 
     @After

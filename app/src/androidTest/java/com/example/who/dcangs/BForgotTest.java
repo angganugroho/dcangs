@@ -23,7 +23,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.*;
 
 /**
  * Created by who on 12/10/2017.
@@ -68,7 +67,7 @@ public class BForgotTest {
     @Test
     public void test3SuccessForgotPassword(){
         forgotActivityTestRule.launchActivity(null);
-        onView(withId(R.id.email)).perform(typeText("daud.muhajir11@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.btnReset)).perform(click());
         pauseTestFor(1500);
         onView(withText("We have sent you instructions to reset your password!"))

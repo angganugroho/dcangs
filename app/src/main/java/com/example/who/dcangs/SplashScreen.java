@@ -1,9 +1,8 @@
 package com.example.who.dcangs;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -26,8 +25,8 @@ public class SplashScreen extends AppCompatActivity {
                 public void run(){
                     try{
                         sleep(3000);
-                    }catch(InterruptedException e){
-                        e.printStackTrace();
+                    }catch(Exception e){
+//                        e.printStackTrace();
                     }finally{
                         Intent intent = new Intent(SplashScreen.this, Login.class);
                         startActivity(intent);
