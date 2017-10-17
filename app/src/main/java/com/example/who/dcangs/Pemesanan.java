@@ -1,6 +1,8 @@
 package com.example.who.dcangs;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,10 +23,11 @@ import java.util.ArrayList;
 
 public class Pemesanan extends android.support.v4.app.Fragment implements View.OnClickListener{
 
-    private DatabaseReference ref, dataPesan, nama;
+    private DatabaseReference ref, dataPesan, nama, pesan;
     FirebaseAuth mAuth;
     TextView tvNama;
     Button btnPesan, btnCancel;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,12 +98,41 @@ public class Pemesanan extends android.support.v4.app.Fragment implements View.O
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnPesan:
-                Toast.makeText(getContext(), "Pesanan Sedang Diproses", Toast.LENGTH_SHORT).show();
+                mAuth = FirebaseAuth.getInstance();
+                ref = FirebaseDatabase.getInstance().getReference();
+                String uid = mAuth.getCurrentUser().getUid();
+                ref = FirebaseDatabase.getInstance().getReference();
+                pesan = ref.child("Pemesanan").child(uid);
+                pesan.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot.hasChild("Produk")) {
+                            // run some code
+                            Toast.makeText(getContext(), "Pesanan Sedang Diproses", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Silakan Pesan Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getContext(), Dashboard.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 break;
             case R.id.btnCancel:
+                mAuth = FirebaseAuth.getInstance();
+                ref = FirebaseDatabase.getInstance().getReference();
+                String uid2 = mAuth.getCurrentUser().getUid();
+                ref = FirebaseDatabase.getInstance().getReference();
+                ref.child("Pemesanan").child(uid2).child("Produk").removeValue();
+
+                startActivity(new Intent(getContext(), Dashboard.class));
+
                 Toast.makeText(getContext(), "Pesanan Dibatalkan", Toast.LENGTH_SHORT).show();
                 break;
         }
-
     }
 }

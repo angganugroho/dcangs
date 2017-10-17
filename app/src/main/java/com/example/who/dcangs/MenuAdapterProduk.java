@@ -119,33 +119,25 @@ public class MenuAdapterProduk extends RecyclerView.Adapter<MenuAdapterProduk.Me
 
                     ref = FirebaseDatabase.getInstance().getReference();
 
-//                    String email = mAuth.getCurrentUser().getEmail();
                     String uid = mAuth.getCurrentUser().getUid();
                     pemesanan = ref.child("Pemesanan").child(uid);
 
-//                    emailPemesan = pemesanan.child("Email");
-
-//                    emailPemesan = pemesanan.child("Email");
                     namaProdukDipesan = pemesanan.child("Produk").child(tv_name.getText().toString());
                     jumlahPesan = pemesanan.child("Produk").child(tv_name.getText().toString()).child("Jumlah");
                     totalHarga = pemesanan.child("Produk").child(tv_name.getText().toString()).child("Total Harga");
                     namaProdukDipesanChild = pemesanan.child("Produk").child(tv_name.getText().toString()).child("Nama Produk");
 
-//                    emailPemesan.setValue(email);
                     namaProdukDipesan.setValue(tv_name.getText().toString());
                     jumlahPesan.setValue(tv_jumlah.getText().toString());
                     totalHarga.setValue(totHarga);
                     namaProdukDipesanChild.setValue(tv_name.getText().toString());
-
 
                     jumlah = Integer.parseInt(tv_jumlah.getText().toString());
                     tv_jumlah.setText(1 + "");
                     Toast.makeText(itemView.getContext(), "Berhasil ditambahkan...", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
-
+            
         }
 
     }

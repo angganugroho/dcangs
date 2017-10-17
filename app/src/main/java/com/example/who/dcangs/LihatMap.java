@@ -46,7 +46,6 @@ public class LihatMap extends android.support.v4.app.Fragment implements OnMapRe
             mMapView.onCreate(null);
             mMapView.onResume();
             mMapView.getMapAsync(this);
-
         }
 
     }

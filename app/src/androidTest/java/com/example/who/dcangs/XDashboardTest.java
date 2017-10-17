@@ -118,7 +118,6 @@ public class XDashboardTest {
                         min.performClick();
                         pauseTestFor(5000);
                         addToCart.performClick();
-
                     }
                 })
         );
@@ -194,6 +193,12 @@ public class XDashboardTest {
         pauseTestFor(1000);
         intended(hasComponent(Login.class.getName()));
         pauseTestFor(1000);
+    }
+
+    @Test
+    public void testGNullSession() {
+        dashboardActivityTestRule.launchActivity(null);
+        intended(hasComponent(Login.class.getName()));
     }
 
     @After

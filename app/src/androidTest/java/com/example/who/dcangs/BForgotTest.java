@@ -82,7 +82,6 @@ public class BForgotTest {
     }
 
 
-
     @After
     public void tearDown() throws Exception {
         Intents.release();

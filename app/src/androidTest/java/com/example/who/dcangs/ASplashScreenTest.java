@@ -58,12 +58,10 @@ public class ASplashScreenTest {
 //        mAuth.signOut();
         pauseTestFor(3000);
         intended(hasComponent(Login.class.getName()));
-
     }
 
     @After
     public void tearDown() throws Exception {
         Intents.release();
     }
-
 }
