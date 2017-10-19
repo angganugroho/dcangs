@@ -17,7 +17,6 @@ public class SplashScreen extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
-//            Log.d("USER", mAuth.getCurrentUser()+"");
             finish();
             startActivity(new Intent(getApplicationContext(), Dashboard.class));
         } else {

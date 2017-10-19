@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -27,7 +26,6 @@ import com.google.firebase.storage.UploadTask;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnRegistrasi;
     private EditText etNama, etEmail, etNohp, etPassword;
     public ImageView userPict;
     private String nama, email, nohp, password;
@@ -36,7 +34,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     private static final int RESULT_LOAD_IMAGE = 1;
     private Uri selectedImage;
     private StorageReference storageReference;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +45,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         storageReference = FirebaseStorage.getInstance().getReference();
 
         userPict = (ImageView) findViewById(R.id.userPict);
-//        btnRegistrasi = (Button) findViewById(R.id.btnRegistrasi);
         etNama = (EditText) findViewById(R.id.nama);
         etEmail = (EditText) findViewById(R.id.email);
         etNohp = (EditText) findViewById(R.id.nohp);
@@ -64,7 +60,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         password = etPassword.getText().toString();
         email = etEmail.getText().toString();
         nohp = etNohp.getText().toString().trim();
-
 
         if(TextUtils.isEmpty(nama) && TextUtils.isEmpty(password) && TextUtils.isEmpty(email) && TextUtils.isEmpty(nohp)){
             etNama.setError("Please enter your name");
@@ -209,19 +204,18 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                         }
                     });
         }
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null){
-//            try{
+            try{
                 selectedImage = data.getData();
                 userPict.setImageURI(selectedImage);
-//            } catch (Exception e){
-//
-//            }
+            } catch (Exception e){
+
+            }
         }
     }
 

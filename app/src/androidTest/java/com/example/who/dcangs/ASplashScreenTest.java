@@ -55,7 +55,6 @@ public class ASplashScreenTest {
     public void testCSessionNull(){
         mAuth = FirebaseAuth.getInstance();
         splashScreenActivityTestRule.launchActivity(null);
-//        mAuth.signOut();
         pauseTestFor(3000);
         intended(hasComponent(Login.class.getName()));
     }

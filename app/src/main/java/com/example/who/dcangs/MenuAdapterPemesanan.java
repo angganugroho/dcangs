@@ -51,13 +51,10 @@ public class MenuAdapterPemesanan extends RecyclerView.Adapter<MenuAdapterPemesa
 
         public MenuAdapterViewHolder(final View itemView) {
             super(itemView);
-
             tv_harga = (TextView) itemView.findViewById(R.id.tv_harga);
             tv_produk = (TextView) itemView.findViewById(R.id.tv_produk);
             tv_jumlah = (TextView) itemView.findViewById(R.id.tv_jumlah);
-
         }
-
     }
 
     public void setData(ArrayList<Menus_Pemesanan> arr) {

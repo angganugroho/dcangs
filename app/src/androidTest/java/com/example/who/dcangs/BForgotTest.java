@@ -75,16 +75,13 @@ public class BForgotTest {
                 .check(matches(isDisplayed()));
     }
 
-
     @Before
     public void setUp() throws Exception {
         Intents.init();
     }
 
-
     @After
     public void tearDown() throws Exception {
         Intents.release();
     }
-
 }

@@ -90,7 +90,6 @@ public class Login extends AppCompatActivity{
                                 return;
                             } else {
                                 tvError.setText("Username or Password Incorrect");
-//                            Toast.makeText(Login.this, "Login failed...", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                         }

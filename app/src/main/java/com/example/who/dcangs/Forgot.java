@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +44,6 @@ public class Forgot extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email)) {
                     inputEmail.setError("Enter your registered email");
-//                    Toast.makeText(getApplication(), "Enter your registered email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -59,7 +57,6 @@ public class Forgot extends AppCompatActivity {
                                 } else {
                                     Toast.makeText(Forgot.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                                 }
-
                                 progressBar.setVisibility(View.GONE);
                             }
                         });

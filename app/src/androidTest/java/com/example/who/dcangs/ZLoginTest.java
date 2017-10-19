@@ -149,5 +149,4 @@ public class ZLoginTest {
     public void tearDown() throws Exception {
         Intents.release();
     }
-
 }

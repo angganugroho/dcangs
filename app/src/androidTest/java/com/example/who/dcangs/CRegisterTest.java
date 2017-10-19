@@ -4,8 +4,6 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -36,8 +34,6 @@ import static org.hamcrest.core.IsNot.not;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class CRegisterTest {
-
-    public FirebaseAuth mAuth;
 
     @Rule
     public ActivityTestRule<Register> registerActivityTestRule = new ActivityTestRule<>(Register.class, true, false);
@@ -319,7 +315,6 @@ public class CRegisterTest {
     @Test
     public void testURegisterFailed(){
         registerActivityTestRule.launchActivity(null);
-
         onView(withId(R.id.nama)).perform(typeText("Ahmad Rifai Habibullah"), closeSoftKeyboard());
         onView(withId(R.id.email)).perform(typeText("rifaihabib29@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());

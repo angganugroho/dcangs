@@ -35,10 +35,8 @@ public class LihatProduk extends android.support.v4.app.Fragment  {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-//                    Log.d("AMBIL DATA", ds.child("nama").getValue().toString());
                     dataList.add(new Menus_Produk(ds.child("nama").getValue().toString(), ds.child("harga").getValue().toString(), ds.child("link").getValue().toString()));
                 }
-//                Log.d("SAMPLE DATA", String.valueOf(dataList.get(2).getHarga()));
                 menuAdapter.setData(dataList);
             }
 

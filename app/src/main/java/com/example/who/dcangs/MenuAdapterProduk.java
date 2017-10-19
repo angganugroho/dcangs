@@ -36,7 +36,6 @@ public class MenuAdapterProduk extends RecyclerView.Adapter<MenuAdapterProduk.Me
     FirebaseAuth mAuth;
     DatabaseReference ref, pemesanan, emailPemesan, namaProdukDipesan, jumlahPesan, totalHarga, namaProdukDipesanChild;
 
-
     public MenuAdapterProduk(Context ctx, ArrayList<Menus_Produk> list){
         this.context = ctx;
         this.listMenu = list;
@@ -137,14 +136,11 @@ public class MenuAdapterProduk extends RecyclerView.Adapter<MenuAdapterProduk.Me
                     Toast.makeText(itemView.getContext(), "Berhasil ditambahkan...", Toast.LENGTH_SHORT).show();
                 }
             });
-            
         }
-
     }
 
     public void setData(ArrayList<Menus_Produk> arr) {
         this.listMenu = arr;
         notifyDataSetChanged();
     }
-
 }

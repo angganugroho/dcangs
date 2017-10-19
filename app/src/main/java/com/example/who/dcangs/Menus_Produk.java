@@ -22,10 +22,8 @@ public class Menus_Produk {
     }
 
     public Menus_Produk(String nama, String harga, String gambar) {
-
         this.nama = nama;
         this.harga = harga;
         this.gambar = gambar;
-
     }
 }

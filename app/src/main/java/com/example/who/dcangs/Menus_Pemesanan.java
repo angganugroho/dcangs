@@ -14,7 +14,6 @@ public class Menus_Pemesanan {
         this.produk = produk;
         this.harga = harga;
         this.jumlah = jumlah;
-//        this.email = email;
     }
 
     public Menus_Pemesanan(String email){
@@ -33,7 +32,4 @@ public class Menus_Pemesanan {
         return jumlah;
     }
 
-//    public String getEmail() {
-//        return email;
-//    }
 }
