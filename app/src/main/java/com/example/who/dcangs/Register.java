@@ -18,22 +18,29 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText etNama, etEmail, etNohp, etPassword;
+    public EditText etNama, etEmail, etNohp, etPassword;
     public ImageView userPict;
-    private String nama, email, nohp, password;
+    public String nama, email, nohp, password;
     public FirebaseAuth mAuth;
-    private DatabaseReference ref, create, noHpUser, namaUser, emailUser, pictUser;
+    private DatabaseReference ref, create, noHpUser, namaUser, emailUser, pictUser, id;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference count = database.getReference("Pemesanan");
     private static final int RESULT_LOAD_IMAGE = 1;
     private Uri selectedImage;
     private StorageReference storageReference;
+    public String jml;
+    public int jumlah;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +61,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
     }
 
-    public void ActionRegister (View view){
-
+    public void register(){
         nama = etNama.getText().toString().trim();
         password = etPassword.getText().toString();
         email = etEmail.getText().toString();
@@ -168,34 +174,51 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                             if(task.isSuccessful()){
                                 finish();
 
-                                String uid = mAuth.getCurrentUser().getUid();
+                                final String uid = mAuth.getCurrentUser().getUid();
                                 create = ref.child("Pemesanan").child(uid).child("Profile");
 
                                 namaUser = create.child("Nama");
                                 noHpUser = create.child("No Telefon");
                                 emailUser = create.child("Email");
                                 pictUser = create.child("Pict");
+                                id = ref.child("Users");
 
-                                    StorageReference riversRef = storageReference.child("User").child(nama);
+                                StorageReference riversRef = storageReference.child("User").child(nama);
 
-                                    riversRef.putFile(selectedImage)
-                                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                riversRef.putFile(selectedImage)
+                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception exception) {
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
 
-                                                }
-                                            });
+                                            }
+                                        });
 
-                                emailUser.setValue(email);
+                                emailUser.setValue("coba@gmail.com");
                                 namaUser.setValue(nama);
                                 noHpUser.setValue(nohp);
                                 pictUser.setValue(nama);
+
+                                ref.child("1 ID GLOBAL").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        jml = dataSnapshot.getValue().toString();
+                                        jumlah = Integer.parseInt(jml) + 1;
+                                        id.child(jumlah+"").child("Uid").setValue(uid);
+
+                                        ref.child("1 ID GLOBAL").setValue(jumlah);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+
                                 Toast.makeText(Register.this, "Register Succesfull", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(Register.this, Login.class));
                             } else {
@@ -204,6 +227,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                         }
                     });
         }
+    }
+
+    public void ActionRegister (View view){
+
+        register();
+
     }
 
     @Override
