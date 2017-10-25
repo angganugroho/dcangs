@@ -199,8 +199,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                                             }
                                         });
 
-                                emailUser.setValue("coba@gmail.com");
-                                namaUser.setValue(nama);
+                                emailUser.setValue(email);
+                                namaUser.setValue("hatma");
                                 noHpUser.setValue(nohp);
                                 pictUser.setValue(nama);
 

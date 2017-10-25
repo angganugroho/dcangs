@@ -4,6 +4,7 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,10 +34,15 @@ public class RegTest {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference data = database.getReference();
     private DatabaseReference ref = database.getReference("Pemesanan");
-//    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
     long aktual = 0;
     long expected = 0;
     String idGlobal, idUser, a, b, c, d;
+    String nama = "habib14";
+    String email = "habib14@gmail.com";
+    String nohp = "087755997588";
+    String password = "12345678";
+    String pict = nama;
 
     private void pauseTestFor(long milliseconds){
         try{
@@ -67,10 +73,10 @@ public class RegTest {
             }
         });
 
-        onView(withId(R.id.nama)).perform(typeText("habib6"), closeSoftKeyboard());
-        onView(withId(R.id.email)).perform(typeText("habib6@gmail.com"), closeSoftKeyboard());
-        onView(withId(R.id.nohp)).perform(typeText("087637747837"), closeSoftKeyboard());
-        onView(withId(R.id.password)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.nama)).perform(typeText(nama), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText(email), closeSoftKeyboard());
+        onView(withId(R.id.nohp)).perform(typeText(nohp), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText(password), closeSoftKeyboard());
         onView(withId(R.id.userPict)).perform(click());
         pauseTestFor(6000);
 
@@ -105,7 +111,7 @@ public class RegTest {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 idGlobal = dataSnapshot.getValue().toString();
-                Log.d("ID GLOBAL", idGlobal);
+//                Log.d("ID GLOBAL", idGlobal);
             }
 
             @Override
@@ -129,6 +135,9 @@ public class RegTest {
 
         pauseTestFor(2500);
 
+        String emailCheck = mAuth.getCurrentUser().getEmail();
+        Log.d("EMAILLLLL", emailCheck);
+
         data.child("Pemesanan").child(idUser).child("Profile").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -146,34 +155,13 @@ public class RegTest {
 
         pauseTestFor(2500);
 
-        assertEquals("coba@gmail.com", a);
-        assertEquals("habib6", b);
-        assertEquals("087637747837", c);
-        assertEquals("habib6", d);
+        assertEquals(email, a);
+        assertEquals(email, emailCheck);
+        assertEquals(nama, b);
+        assertEquals(nohp, c);
+        assertEquals(pict, d);
 
     }
-
-
-//    @Test
-//    public void testJumlah() {
-////        pause(2000);
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-////                FirebaseAuth firebaseAuth;
-////                firebaseAuth = FirebaseAuth.getInstance();
-////                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                aktual = dataSnapshot.getChildrenCount();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
-//
-//        onView(withId(R.id.btnRegistrasi)).perform(click());
-//        assertEquals(6, aktual);
-//    }
 
     @After
     public void tearDown() throws Exception {
